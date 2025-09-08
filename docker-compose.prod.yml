@@ -18,7 +18,7 @@ services:
 
   # Backend Spring Boot Service
   backend:
-    image: your-dockerhub-username/chattingo-backend:latest
+    image: rehanshaikh1207/chattingo-backend:latest
     container_name: chattingo-backend-prod
     restart: unless-stopped
     environment:
@@ -41,7 +41,7 @@ services:
 
   # Frontend React Service
   webservice:
-    image: your-dockerhub-username/chattingo-frontend:latest
+    image: rehanshaikh1207/chattingo-frontend:latest
     container_name: chattingo-frontend-prod
     restart: unless-stopped
     ports:
