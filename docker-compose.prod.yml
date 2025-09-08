@@ -5,8 +5,8 @@ services:
     container_name: chattingo-mysql-prod
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-chattingo_db}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chattingo_db
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -21,7 +21,7 @@ services:
     image: rehanshaikh1207/chattingo-backend:latest
     container_name: chattingo-backend-prod
     restart: unless-stopped
-    environment:
+    environment: 
       SPRING_DATASOURCE_URL: jdbc:mysql://dbservice:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: rootpassword
