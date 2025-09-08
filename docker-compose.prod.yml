@@ -22,7 +22,7 @@ services:
     container_name: chattingo-backend-prod
     restart: unless-stopped
     environment: 
-      SPRING_DATASOURCE_URL: jdbc:mysql://dbservice:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://dbservice:3306/chattingo_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: rootpassword
       JWT_SECRET: khLARPHP84dq8BxukmgbXgH78DQghkzbvensnLTuqjPE/xlC5al67kz8Wv7b1hIHFQOUnh7v/w41Ce5mPpdpKA==
