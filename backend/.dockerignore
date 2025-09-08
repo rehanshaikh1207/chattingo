@@ -1,0 +1,28 @@
+# Ignore files that shouldn't be copied to Docker image
+
+# Maven build directory (we only need source code, not compiled files)
+target/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git files
+.git/
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

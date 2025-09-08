@@ -1,0 +1,75 @@
+services:
+  # MySQL Database Service
+  dbservice:
+    image: mysql:8.0
+    container_name: chattingo-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-chattingo_db}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - chattingo-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Backend Spring Boot Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chattingo-backend
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://dbservice:3306/${MYSQL_DATABASE:-chattingo_db}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://localhost}
+      SPRING_PROFILES_ACTIVE: production
+    ports:
+      - "8080:8080"
+    depends_on:
+      dbservice:
+        condition: service_healthy
+    networks:
+      - chattingo-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend React Service
+  webservice:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: chattingo-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    networks:
+      - chattingo-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  chattingo-network:
+    driver: bridge

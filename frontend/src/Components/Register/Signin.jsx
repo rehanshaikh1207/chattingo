@@ -8,6 +8,7 @@ import { currentUser, login } from "../../Redux/Auth/Action";
 const Signin = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [inputData, setInputData] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -15,19 +16,18 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const res = await dispatch(login(inputData));
     if (res && res.jwt) {
       await dispatch(currentUser(res.jwt));
       setOpenSnackbar(true);
       navigate("/");
-    } else {
-      // optionally show error toast/snackbar here
     }
+    setIsLoading(false);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Update the inputData state with the new values
     setInputData((values) => ({ ...values, [name]: value }));
   };
 
@@ -42,75 +42,103 @@ const Signin = () => {
   }, [dispatch, token]);
 
   useEffect(() => {
-    // If the current user data is available, navigate to the homepage
     if (auth.reqUser?.name) {
       navigate("/");
     }
   }, [auth.reqUser, navigate]);
 
   return (
-    <div>
-      <div className="flex justify-center h-screen w-[100vw] items-center">
-        <div className="p-10 w-[30%] shadow-md bg-white">
-          <form onSubmit={handleSubmit} className="space-y-5 ">
-            <div>
-              <p className="mb-2">Email</p>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+      
+      <div className="relative z-10 w-full max-w-md animate-fadeIn">
+        <div className="glass p-8 shadow-2xl">
+          {/* Logo Section */}
+          <div className="text-center mb-8">
+            <div className="relative mb-4">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-2xl opacity-30 animate-pulse-custom"></div>
+              <div className="relative z-10 w-16 h-16 mx-auto bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path>
+                  <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path>
+                </svg>
+              </div>
+            </div>
+            <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
+            <p className="text-white/70">Sign in to continue to Chattingo</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-white/90 font-medium">Email</label>
               <input
-                type="text"
+                type="email"
                 name="email"
                 placeholder="Enter your email"
                 onChange={handleChange}
                 value={inputData.email}
-                className="py-2 outline outline-green-600 w-full rounded-md border"
+                className="w-full py-3 px-4 bg-white/10 border border-white/20 rounded-lg outline-none text-white placeholder-white/50 focus:border-blue-400 focus:bg-white/20 transition-all"
+                required
               />
             </div>
-            <div>
-              <p className="mb-2">Password</p>
+            
+            <div className="space-y-2">
+              <label className="text-white/90 font-medium">Password</label>
               <input
-                type="password" // Change to type="password" for security
+                type="password"
                 name="password"
                 placeholder="Enter your password"
                 onChange={handleChange}
                 value={inputData.password}
-                className="py-2 outline outline-green-600 w-full rounded-md border"
+                className="w-full py-3 px-4 bg-white/10 border border-white/20 rounded-lg outline-none text-white placeholder-white/50 focus:border-blue-400 focus:bg-white/20 transition-all"
+                required
               />
             </div>
-            <div>
-              <Button
-                type="submit"
-                sx={{ bgcolor: green[700], padding: ".5rem 0rem" }}
-                className="w-full"
-                variant="contained"
-              >
-                Sign In
-              </Button>
-            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  <span>Signing In...</span>
+                </div>
+              ) : (
+                "Sign In"
+              )}
+            </button>
           </form>
 
-          <div className="flex space-x-3 items-center mt-5">
-            <p className="m-0">Create New Account</p>
-            <Button variant="text" onClick={() => navigate("/signup")}>
-              SignUp
-            </Button>
+          <div className="mt-8 text-center">
+            <p className="text-white/70 mb-4">Don't have an account?</p>
+            <button
+              onClick={() => navigate("/signup")}
+              className="text-blue-300 hover:text-blue-200 font-semibold transition-colors hover:underline"
+            >
+              Create New Account
+            </button>
           </div>
         </div>
       </div>
-      <div>
-        <Snackbar
-          open={openSnackbar}
-          autoHideDuration={6000}
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
           onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}
         >
-          <Alert
-            onClose={handleSnackbarClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Login Successfully!!
-          </Alert>
-        </Snackbar>
-      </div>
+          Login Successfully!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
+
 export default Signin;

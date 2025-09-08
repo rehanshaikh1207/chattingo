@@ -1,0 +1,44 @@
+# Ignore files that shouldn't be copied to Docker image
+
+# Node.js dependencies (we install fresh in container)
+node_modules/
+
+# Build output (we create fresh build in container)
+build/
+dist/
+
+# Development files
+.env.local
+.env.development
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git files
+.git/
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# Logs and cache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.yarn/
+
+# Testing
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
