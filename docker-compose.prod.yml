@@ -26,7 +26,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: rootpassword
       JWT_SECRET: khLARPHP84dq8BxukmgbXgH78DQghkzbvensnLTuqjPE/xlC5al67kz8Wv7b1hIHFQOUnh7v/w41Ce5mPpdpKA==
-      CORS_ALLOWED_ORIGINS: http://31.97.191.107,http://31.97.191.107:80,http://localhost:80,http://localhostt
+      CORS_ALLOWED_ORIGINS: http://cloudwithrehan.in,http://www.cloudwithrehan.in,http://localhost:80,http://localhostt
       SPRING_PROFILES_ACTIVE: production
     depends_on:
       dbservice:
