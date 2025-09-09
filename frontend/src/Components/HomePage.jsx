@@ -350,11 +350,9 @@ function HomePage() {
               <div className="max-w-[70%] text-center animate-fadeIn">
                 <div className="relative mb-8">
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-3xl opacity-30 animate-pulse-custom"></div>
-                  <img
-                    className="relative z-10 w-32 h-32 mx-auto rounded-full shadow-2xl"
-                    src="https://cdn.pixabay.com/photo/2015/08/03/13/58/whatsapp-873316_640.png"
-                    alt="chattingo-icon"
-                  />
+                  <div className="relative z-10 w-32 h-32 mx-auto rounded-full shadow-2xl bg-gradient-to-r from-orange-400 to-pink-500 flex items-center justify-center">
+                    <GiCat className="text-white text-6xl" />
+                  </div>
                 </div>
                 <h1 className="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                   Chattingo Web
