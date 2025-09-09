@@ -8,6 +8,7 @@ import { currentUser, logoutAction, searchUser } from "../Redux/Auth/Action";
 import { createChat, getUsersChat } from "../Redux/Chat/Action";
 import { createMessage, getAllMessages } from "../Redux/Message/Action";
 import SockJs from "sockjs-client/dist/sockjs";
+import { GiCat } from "react-icons/gi";
 import { Client } from "@stomp/stompjs";
 import { BASE_API_URL } from "../config/api";
 import ProfileSection from "./HomeComponents/ProfileSection";
