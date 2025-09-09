@@ -35,7 +35,8 @@ public class UserController {
     }
 
     @GetMapping("/{query}")
-    public ResponseEntity<List<User>> searchUserHandler(@PathVariable("query") String query) {
+    public ResponseEntity<List<User>> searchUserHandler(@PathVariable("query") String query,
+            @RequestHeader("Authorization") String token) throws UserException {
 
         List<User> users = this.userService.searchUser(query);
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
