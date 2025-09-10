@@ -16,6 +16,8 @@ CORS_ALLOWED_METHODS=GET,POST,PUT,DELETE,OPTIONS
 CORS_ALLOWED_HEADERS=*
 SPRING_PROFILES_ACTIVE=production
 SERVER_PORT=8080
-"""
+""".stripIndent().trim()
+writeFile file: '.env', text: envContent
+echo '.env file created in workspace'
     }
 }
