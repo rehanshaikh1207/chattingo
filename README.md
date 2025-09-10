@@ -54,26 +54,26 @@ Chattingo is a **production-ready real-time chat application** built for the **M
 graph TB
     subgraph "Production Environment - Hostinger VPS"
         subgraph "Docker Network"
-            FE[Frontend Container<br/>Nginx + React<br/>Port: 80/443]
-            BE[Backend Container<br/>Spring Boot + JWT<br/>Port: 8080]
-            DB[Database Container<br/>MySQL 8.0<br/>Port: 3306]
-            JK[Jenkins Server<br/>CI/CD Pipeline<br/>Port: 8081]
+            FE["Frontend Container<br/>Nginx + React<br/>Port: 80/443"]
+            BE["Backend Container<br/>Spring Boot + JWT<br/>Port: 8080"]
+            DB["Database Container<br/>MySQL 8.0<br/>Port: 3306"]
+            JK["Jenkins Server<br/>CI/CD Pipeline<br/>Port: 8081"]
         end
-        SSL[SSL Certificate<br/>Let's Encrypt<br/>Auto-renewal]
-        ENV[Environment Variables<br/>JWT_SECRET<br/>MYSQL_ROOT_PASSWORD<br/>CORS_ALLOWED_ORIGINS]
+        SSL["SSL Certificate<br/>Let's Encrypt<br/>Auto-renewal"]
+        ENV["Environment Variables<br/>JWT_SECRET<br/>MYSQL_ROOT_PASSWORD<br/>CORS_ALLOWED_ORIGINS"]
     end
     
     subgraph "External Services"
-        GH[GitHub Repository<br/>Source Code]
-        DH[Docker Hub Registry<br/>Container Images]
-        DNS[Domain DNS<br/>cloudwithrehan.in]
-        USER[End Users<br/>Web Browser]
+        GH["GitHub Repository<br/>Source Code"]
+        DH["Docker Hub Registry<br/>Container Images"]
+        DNS["Domain DNS<br/>cloudwithrehan.in"]
+        USER["End Users<br/>Web Browser"]
     end
     
     subgraph "API Endpoints"
-        AUTH[/auth/signup<br/>/auth/signin]
-        API[/api/users<br/>/api/chats<br/>/api/messages]
-        WS[/ws - WebSocket<br/>Real-time Chat]
+        AUTH["/auth/signup<br/>/auth/signin"]
+        API["/api/users<br/>/api/chats<br/>/api/messages"]
+        WS["/ws - WebSocket<br/>Real-time Chat"]
     end
     
     USER --> DNS
@@ -586,11 +586,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
+- **[Shubham Londhe](https://www.linkedin.com/in/shubhamlondhe1996/)** - For guidance and mentorship
+- **[Md. Afzal Hassan Ehsani](https://www.linkedin.com/in/iemafzalhassan/)** - For project inspiration and support
+- **TrainWithShubham Discord Community** - For continuous learning and support
 - **Hackathon Organizers** - For the amazing challenge
-- **Spring Boot Team** - For the excellent framework
-- **React Team** - For the powerful frontend library
-- **Docker Team** - For containerization technology
-- **Jenkins Community** - For CI/CD automation
 - **Hostinger** - For reliable VPS hosting
 
 ---
