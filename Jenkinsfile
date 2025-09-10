@@ -1,4 +1,4 @@
-@Library('jenkins-shared-library') _
+@Library('chattingo-shared-lib') _
 
 pipeline {
     agent any
