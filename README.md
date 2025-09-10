@@ -44,7 +44,7 @@ Chattingo is a **production-ready real-time chat application** built for the **M
 - ✅ **Production VPS Deployment** (Hostinger)
 - ✅ **SSL Certificate & Domain** (cloudwithrehan.in)
 - ✅ **Real-time WebSocket Communication**
-- ✅ **Security Scanning** (Filesystem & Image)
+- ✅ **Security Scanning** (Filesystem & Image) - Trivy vulnerability analysis
 
 ---
 
@@ -52,43 +52,58 @@ Chattingo is a **production-ready real-time chat application** built for the **M
 
 ```mermaid
 graph TB
-    subgraph "Production Environment"
-        subgraph "Hostinger VPS"
-            subgraph "Docker Network"
-                FE[Frontend Container<br/>Nginx + React]
-                BE[Backend Container<br/>Spring Boot]
-                DB[Database Container<br/>MySQL 8.0]
-            end
-            SSL[SSL Certificate<br/>Let's Encrypt]
+    subgraph "Production Environment - Hostinger VPS"
+        subgraph "Docker Network"
+            FE[Frontend Container<br/>Nginx + React<br/>Port: 80/443]
+            BE[Backend Container<br/>Spring Boot + JWT<br/>Port: 8080]
+            DB[Database Container<br/>MySQL 8.0<br/>Port: 3306]
+            JK[Jenkins Server<br/>CI/CD Pipeline<br/>Port: 8081]
         end
-    end
-    
-    subgraph "CI/CD Pipeline"
-        GH[GitHub Repository]
-        JK[Jenkins Server]
-        DH[Docker Hub Registry]
+        SSL[SSL Certificate<br/>Let's Encrypt<br/>Auto-renewal]
+        ENV[Environment Variables<br/>JWT_SECRET<br/>MYSQL_ROOT_PASSWORD<br/>CORS_ALLOWED_ORIGINS]
     end
     
     subgraph "External Services"
+        GH[GitHub Repository<br/>Source Code]
+        DH[Docker Hub Registry<br/>Container Images]
         DNS[Domain DNS<br/>cloudwithrehan.in]
-        USER[End Users]
+        USER[End Users<br/>Web Browser]
+    end
+    
+    subgraph "API Endpoints"
+        AUTH[/auth/signup<br/>/auth/signin]
+        API[/api/users<br/>/api/chats<br/>/api/messages]
+        WS[/ws - WebSocket<br/>Real-time Chat]
     end
     
     USER --> DNS
     DNS --> SSL
     SSL --> FE
-    FE --> BE
+    FE --> AUTH
+    FE --> API
+    FE --> WS
+    AUTH --> BE
+    API --> BE
+    WS --> BE
     BE --> DB
+    BE --> ENV
     
     GH --> JK
     JK --> DH
     JK --> FE
+    JK --> BE
+    ENV --> BE
+    ENV --> DB
     
     style FE fill:#61DAFB
     style BE fill:#6DB33F
     style DB fill:#4479A1
     style JK fill:#D33833
     style SSL fill:#FF6B35
+    style ENV fill:#FFA500
+    style AUTH fill:#9370DB
+    style API fill:#20B2AA
+    style WS fill:#FF69B4
 ```
 
 ### 🔄 Data Flow
@@ -130,6 +145,7 @@ Containerization: Docker (Multi-stage builds)
 Orchestration: Docker Compose
 CI/CD: Jenkins Pipeline
 Registry: Docker Hub
+Security Scanning: Trivy (Image & Filesystem)
 VPS: Hostinger Ubuntu 22.04
 SSL: Let's Encrypt (Certbot)
 Domain: cloudwithrehan.in
@@ -152,7 +168,7 @@ Domain: cloudwithrehan.in
 - ✅ **CORS Protection** - Configured for production domain
 - ✅ **HTTPS Encryption** - SSL certificate protection
 - ✅ **Input Validation** - Backend validation for all inputs
-- ✅ **Security Scanning** - Automated vulnerability checks
+- ✅ **Security Scanning** - Automated vulnerability checks with Trivy
 
 ### 🚀 Performance Features
 - ✅ **Multi-stage Builds** - Optimized Docker images
@@ -310,8 +326,8 @@ pipeline {
 Created reusable functions for:
 - `gitClone()` - Repository cloning
 - `dockerBuild()` - Multi-stage image building
-- `parallelImageScan()` - Security vulnerability scanning
-- `filesystemScan()` - Source code security analysis
+- `parallelImageScan()` - Security vulnerability scanning with Trivy
+- `filesystemScan()` - Source code security analysis with Trivy
 - `pushToRegistry()` - Docker Hub image publishing
 - `updateCompose()` - Dynamic compose file updates
 - `deploy()` - Production deployment
@@ -500,22 +516,6 @@ REACT_APP_API_URL=https://cloudwithrehan.in
 - ✅ Production deployment process
 - ✅ Real-time chat functionality
 
----
-
-## 🏆 Hackathon Scoring
-
-### ✅ Completed Tasks
-
-| Task | Points | Status |
-|------|--------|--------|
-| Multi-stage Dockerfiles | 5/5 | ✅ Complete |
-| Jenkins CI/CD Pipeline | 17/17 | ✅ Complete |
-| Jenkins Shared Library | 3/3 | ✅ Complete |
-| Active Engagement | 2/2 | ✅ Complete |
-| Creativity & Innovation | 2/2 | ✅ Complete |
-| Documentation | 10/10 | ✅ Complete |
-| **Total Score** | **39/39** | **🏆 Perfect** |
-
 ### 🌟 Additional Features
 
 - ✅ **Production SSL Certificate** - HTTPS with Let's Encrypt
@@ -523,6 +523,7 @@ REACT_APP_API_URL=https://cloudwithrehan.in
 - ✅ **Security Scanning** - Automated vulnerability checks
 - ✅ **Health Monitoring** - Container health checks
 - ✅ **Email Notifications** - Build status notifications
+- ✅ **Improved UI** - Enhanced frontend design and user experience
 
 ---
 
@@ -572,8 +573,8 @@ docker-compose up -d
 ### 📧 Contact
 
 - **Email**: ifrit1207@gmail.com
-- **LinkedIn**: [Your LinkedIn Profile]
-- **GitHub**: [Your GitHub Profile]
+- **LinkedIn**: [https://www.linkedin.com/in/rehan-shaikh-700020241/](https://www.linkedin.com/in/rehan-shaikh-700020241/)
+- **GitHub**: [https://github.com/rehanshaikh1207](https://github.com/rehanshaikh1207)
 
 ---
 
