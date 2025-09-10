@@ -28,22 +28,26 @@ pipeline {
 
         stage('Filesystem Scan') {
             steps {
-                echo "Scanning filesystem..."
+                echo "Scanning cloned repository with Trivy..."
                 sh """
-                    find . -name "*.env*" -type f || true
-                    echo "Filesystem scan completed"
+                    trivy fs --no-progress --severity HIGH,CRITICAL --format table --scanners vuln ${WORKSPACE} || true
+                    echo "File system scan completed."
                 """
             }
         }
 
         stage('Image Scan') {
             steps {
-                echo "Scanning images..."
-                sh """
-                    echo "Scanning frontend image..."
-                    echo "Scanning backend image..."
-                    echo "Image scan completed"
-                """
+                echo "Scanning Docker images for vulnerabilities...make sure trivy is installed in the system"
+                sh '''
+                  # Scan frontend image
+                  trivy image --no-progress --severity HIGH,CRITICAL ${DOCKER_REGISTRY}/chattingo-frontend:${IMAGE_TAG} || true
+
+                  # Scan backend image
+                  trivy image --no-progress --severity HIGH,CRITICAL ${DOCKER_REGISTRY}/chattingo-backend:${IMAGE_TAG} || true
+
+                  echo "Image scan completed."
+                '''
             }
         }
 
