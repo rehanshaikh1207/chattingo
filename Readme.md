@@ -20,7 +20,7 @@ A full-stack real-time chat application built with React, Spring Boot, and WebSo
 **Repository URL**: https://github.com/iemafzalhassan/chattingo
 - **Currently**: Private repository (registration phase)
 - **Will be public**: After registration closes (Sept 6)
-- **Action Required**: Fork & star the repository once it becomes public
+- **Action Required**: Fork & star the repository once it becomes 
 
 ---
 
