@@ -4,7 +4,7 @@ A full-stack real-time chat application built with React, Spring Boot, and WebSo
 
 ## 🚨 **IMPORTANT: Registration Required**
 
-### **📝 [REGISTER NOW](https://forms.gle/NgNJNg8yQvPaA1Vz9)** 
+### **📝 [REGISTER NOW](https://forms.gle/NgNJNg8yQvPaA1Vz9)* 
 **Deadline: September 5, 2025**
 
 **What you need to register:**
