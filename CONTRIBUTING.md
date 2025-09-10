@@ -10,7 +10,8 @@
 
 ---
 
-## 🚀 Development Setup
+## 🚀 Development Setu
+
 
 ### Prerequisites
 - **Java 17+** (OpenJDK recommended)
