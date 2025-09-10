@@ -20,7 +20,7 @@ services:
 
   # Backend Spring Boot Service
   backend:
-    image: rehanshaikh1207/chattingo-backend:${IMAGE_TAG}
+    image: rehanshaikh1207/chattingo-backend:latest
     container_name: chattingo-backend-prod
     restart: unless-stopped
     environment:
@@ -43,7 +43,7 @@ services:
 
   # Frontend React Service
   webservice:
-    image: rehanshaikh1207/chattingo-frontend:${IMAGE_TAG}
+    image: rehanshaikh1207/chattingo-frontend:latest
     container_name: chattingo-frontend-prod
     restart: unless-stopped
     ports:
