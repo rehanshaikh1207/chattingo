@@ -47,9 +47,17 @@ pipeline {
             }
         }
 
+        stage('Update Compose') {
+            steps {
+                script {
+                    updateCompose(env.IMAGE_TAG)
+                }
+            }
+        }
+
         stage('Deploy with Docker Compose') {
             steps {
-                sh 'docker-compose -f docker-compose.prod.yml up -d --build'
+                deploy()
             }
         }
     }
@@ -60,11 +68,13 @@ pipeline {
                  subject: "SUCCESS: Build #${env.BUILD_NUMBER} - Chattingo",
                  body: "Build #${env.BUILD_NUMBER} completed successfully. Details: ${env.BUILD_URL}"
         }
+
         failure {
             mail to: "${env.EMAIL_RECIPIENTS}",
                  subject: "FAILURE: Build #${env.BUILD_NUMBER} - Chattingo",
                  body: "Build #${env.BUILD_NUMBER} failed. Check: ${env.BUILD_URL}"
         }
+
         always {
             cleanWs()
         }
