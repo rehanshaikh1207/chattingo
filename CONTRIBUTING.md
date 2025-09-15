@@ -1,6 +1,6 @@
 # 🤝 Contributing to Chattingo Hackathon
 
-## 📋 Table of Contents
+## 📋 Table of Content
 
 - [Development Setup](#-development-setup)
 - [Environment Configuration](#-environment-configuration)
